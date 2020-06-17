@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.todomvvm.R;
 import com.example.todomvvm.database.AppDatabase;
@@ -99,6 +100,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onSaveButtonClicked();
+
             }
         });
     }
@@ -129,11 +131,16 @@ public class AddEditTaskActivity extends AppCompatActivity {
         TaskEntry todo = new TaskEntry(description, priority, date);
         if(mTaskId == DEFAULT_TASK_ID)
             viewModel.insertTask(todo);
-        else{
-            todo.setId(mTaskId);
-            viewModel.updateTask(todo);
+            else{
+                todo.setId(mTaskId);
+                viewModel.updateTask(todo);
 
-        }
+            }
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Task Updated",
+                Toast.LENGTH_SHORT);
+
+        toast.show();
         finish();
 
     }
